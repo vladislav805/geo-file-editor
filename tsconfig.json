@@ -10,8 +10,6 @@
         "noImplicitReturns": false,
         "noImplicitAny": true,
         "noImplicitOverride": true,
-        // "importsNotUsedAsValues": "error",
-        // "ignoreDeprecations": "5.0",
         "verbatimModuleSyntax": true,
         "baseUrl": "src",
         "strict": true,

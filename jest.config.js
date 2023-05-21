@@ -1,4 +1,5 @@
-const { defaults: tsjPreset } = require('ts-jest/presets');
+const { pathsToModuleNameMapper } = require('ts-jest');
+const { compilerOptions } = require('./tsconfig');
 
 module.exports = {
     preset: 'ts-jest',
@@ -7,6 +8,12 @@ module.exports = {
         '**/*.test.ts',
     ],
     transform: {
-        ...tsjPreset.transform,
+        '^.+\\.tsx?$': [
+            'ts-jest',
+            {
+                tsconfig: './tsconfig.jest.json',
+            }
+        ]
     },
+    moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: `${__dirname}/src` }),
 };
