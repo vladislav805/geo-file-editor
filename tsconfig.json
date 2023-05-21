@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "jsx": "react-jsx",
+        "module": "esnext",
+        "moduleResolution": "node",
+        "target": "esnext",
+        "sourceMap": true,
+        "esModuleInterop": true,
+        "lib": ["dom", "es6"],
+        "noImplicitReturns": false,
+        "noImplicitAny": true,
+        "noImplicitOverride": true,
+        // "importsNotUsedAsValues": "error",
+        // "ignoreDeprecations": "5.0",
+        "verbatimModuleSyntax": true,
+        "baseUrl": "src",
+        "strict": true,
+        "alwaysStrict": true,
+        "paths": {
+            "@components/*": ["components/*"],
+            "@typings": ["typings"],
+            "@typings/*": ["typings/*"],
+            "@lib/*": ["lib/*"]
+        }
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules/*"
+    ]
+}
