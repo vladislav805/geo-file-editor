@@ -1,4 +1,4 @@
-import type { IMetaInfo, IPlacemark } from '@typings';
+import type { IMetaInfo, IPlacemark, ITrack } from '@typings';
 import { convert } from 'xmlbuilder2';
 
 import { asArray } from '@lib/asArray';
@@ -33,6 +33,20 @@ export class Reader_gpx extends Reader<GPXRoot> {
         const wpt = asArray(contents.gpx.wpt);
 
         return wpt.map(this.getPlacemark.bind(this));
+    }
+
+    protected override getTracks(contents: GPXRoot): ITrack[] {
+        const getPlacemark = this.getPlacemark.bind(this);
+
+        return asArray(contents.gpx.trk).map(track => {
+            const segments = asArray(track.trkseg).map(segment => {
+                const points = asArray(segment.trkpt).map(getPlacemark);
+
+                return { points };
+            });
+
+            return { segments };
+        });
     }
 
     private getPlacemark(wpt: GPXWaypoint, index: number): IPlacemark {

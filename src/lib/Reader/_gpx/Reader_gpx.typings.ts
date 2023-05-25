@@ -9,6 +9,8 @@ export interface GPXDocument {
     time?: string;
     metadata?: GPXMetaData;
     wpt?: GPXWaypoint | GPXWaypoint[];
+    trk?: GPXTrack | GPXTrack[];
+    extensions?: unknown;
 }
 
 /**
@@ -228,4 +230,65 @@ export interface GPXLink {
      * Mime type of content (image/jpeg)
      */
     type?: string;
+}
+
+export interface GPXTrack {
+    /**
+     * GPS name of track.
+     */
+    name?: string;
+
+    /**
+     * GPS comment for track.
+     */
+    cmt?: XMLStringOrCData;
+
+    /**
+     * User description of track.
+     */
+    desc?: XMLStringOrCData;
+
+    /**
+     * Source of data. Included to give user some idea of reliability and accuracy of data.
+     */
+    src?: XMLStringOrCData;
+
+    /**
+     * Links to external information about track.
+     */
+    link?: GPXLink;
+
+    /**
+     * GPS track number. (non negative integer)
+     */
+    number?: string;
+
+    /**
+     * Type (classification) of track.
+     */
+    type?: string;
+
+    /**
+     * You can add extend GPX by adding your own elements from another schema here.
+     */
+    extensions?: unknown;
+
+    /**
+     * A Track Segment holds a list of Track Points which are logically connected in order. To represent a single
+     * GPS track where GPS reception was lost, or the GPS receiver was turned off, start a new Track Segment for
+     * each continuous span of track data.
+     */
+    trkseg?: GPXTrackSegment | GPXTrackSegment[];
+}
+
+export interface GPXTrackSegment {
+    /**
+     * A Track Point holds the coordinates, elevation, timestamp, and metadata for a single point in a track.
+     */
+    trkpt?: GPXWaypoint | GPXWaypoint[];
+
+    /**
+     * You can add extend GPX by adding your own elements from another schema here.
+     */
+    extensions?: unknown;
 }

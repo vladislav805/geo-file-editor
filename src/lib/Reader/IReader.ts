@@ -1,4 +1,4 @@
-import type { IPlacemark, IMetaInfo } from '@typings';
+import type { IPlacemark, IMetaInfo, ITrack } from '@typings';
 
 export interface IReaderCtr<T = string> {
     new(content: T): IReader;
@@ -11,4 +11,5 @@ export interface IReader {
 export interface IReaderResult {
     meta: IMetaInfo;
     placemarks: IPlacemark[];
+    tracks: ITrack[];
 }

@@ -1,4 +1,4 @@
-import type { IMetaInfo, IPlacemark } from '@typings';
+import type { IMetaInfo, IPlacemark, ITrack } from '@typings';
 import type { IReader, IReaderResult } from './IReader';
 
 export abstract class Reader<InternalFileContent> implements IReader {
@@ -14,12 +14,15 @@ export abstract class Reader<InternalFileContent> implements IReader {
 
     protected abstract getPlacemarks(contents: InternalFileContent): IPlacemark[];
 
+    protected abstract getTracks(contents: InternalFileContent): ITrack[];
+
     public async read(): Promise<IReaderResult> {
         const contents = await this.parseFile(this.file);
 
         return {
             meta: this.getMetaInfo(contents),
             placemarks: this.getPlacemarks(contents),
+            tracks: this.getTracks(contents),
         };
     }
 }
