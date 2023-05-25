@@ -1,5 +1,5 @@
-import { Parser_gpx } from './Parser_gpx';
-import type { GPXRoot, GPXWaypoint } from './Parser_gpx.typings';
+import { Reader_gpx } from './Reader_gpx';
+import type { GPXRoot, GPXWaypoint } from './Reader_gpx.typings';
 
 /* eslint-disable max-len */
 const stubMinimal = `<?xml version="1.0" encoding="utf-8"?><gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd"><time>2020-08-01T10:31:07.039Z</time><metadata><name>track</name><desc /></metadata><wpt lat="60.00885816124969" lon="30.372439115032552"><name>#1 Sight</name></wpt><wpt lat="60.00839426009858" lon="30.375299011963346"><name>#2 Sight</name></wpt></gpx>`;
@@ -7,12 +7,12 @@ const stubMinimal = `<?xml version="1.0" encoding="utf-8"?><gpx xmlns="http://ww
 const stubYandexMapsConstructor = `<?xml version="1.0" encoding="UTF-8"?><gpx version="1.1" creator="Yandex Map Constructor" xmlns="http://www.topografix.com/GPX/1/1"><metadata><name><![CDATA[test]]></name><desc /><time>2023-05-21T19:56:35.548Z</time></metadata><wpt lon="30.177533422241073" lat="59.999706004025455"><name><![CDATA[Mark 1]]></name></wpt><wpt lon="30.21847466064436" lat="60.013760094835824"><name><![CDATA[Mark 2]]></name><desc><![CDATA[Mark 2 - desription]]></desc></wpt><wpt lon="30.218560491332834" lat="60.008173559232475"><name><![CDATA[With icon]]></name></wpt></gpx>`;
 /* eslint-enable max-len */
 
-describe('Parser_gpx', () => {
-    describe('#parse', () => {
+describe('Reader_gpx', () => {
+    describe('#read', () => {
         it('should parse minimal case', async () => {
-            const parser = new Parser_gpx(stubMinimal);
+            const reader = new Reader_gpx(stubMinimal);
 
-            expect(await parser.parse()).toEqual({
+            expect(await reader.read()).toEqual({
                 meta: {
                     description: undefined,
                     name: 'track',
@@ -46,9 +46,9 @@ describe('Parser_gpx', () => {
         });
 
         it('should parse Yandex.Map Constructor case', async () => {
-            const parser = new Parser_gpx(stubYandexMapsConstructor);
+            const reader = new Reader_gpx(stubYandexMapsConstructor);
 
-            expect(await parser.parse()).toEqual({
+            expect(await reader.read()).toEqual({
                 meta: {
                     description: undefined,
                     name: 'test',
@@ -106,7 +106,7 @@ describe('Parser_gpx', () => {
             };
 
             // @ts-expect-error private method
-            expect(Parser_gpx.prototype.getMetaInfo.call(null, root, 0)).toEqual({
+            expect(Reader_gpx.prototype.getMetaInfo.call(null, root, 0)).toEqual({
                 name: 'name',
                 description: 'description',
                 elevation: undefined,
@@ -124,7 +124,7 @@ describe('Parser_gpx', () => {
             };
 
             // @ts-expect-error private method
-            expect(Parser_gpx.prototype.getPlacemark.call(null, wpt, 0)).toEqual({
+            expect(Reader_gpx.prototype.getPlacemark.call(null, wpt, 0)).toEqual({
                 id: 1,
                 point: {
                     latitude: 1,

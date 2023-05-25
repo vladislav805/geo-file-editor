@@ -4,11 +4,11 @@ import { convert } from 'xmlbuilder2';
 import { asArray } from '@lib/asArray';
 import { readFileAsText } from '@lib/readFileAsText';
 
-import { Parser } from '../Parser';
-import type { GPXRoot, GPXWaypoint } from './Parser_gpx.typings';
+import { Reader } from '../Reader';
+import type { GPXRoot, GPXWaypoint } from './Reader_gpx.typings';
 import { getXMLString } from '@lib/xml/getXMLString';
 
-export class Parser_gpx extends Parser<GPXRoot> {
+export class Reader_gpx extends Reader<GPXRoot> {
     protected override async parseFile(file: File | string) {
         if (typeof file !== 'string') {
             file = await readFileAsText(file);
