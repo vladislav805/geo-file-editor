@@ -21,6 +21,7 @@
     "xmlbuilder2": "3.1.1"
   },
   "devDependencies": {
+    "@types/geojson": "7946.0.10",
     "@types/html-webpack-plugin": "3.2.6",
     "@types/jest": "29.5.1",
     "@types/node": "20.2.1",
